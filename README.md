@@ -1,4 +1,4 @@
-# 🚀 VibeCoder: Wireframe to App
+# 🚀 WireframeToApp
 
 > **An elite AI-powered Vibe Coding tool that instantly transforms your hand-drawn wireframes into production-ready React + Tailwind CSS web applications.**
 
@@ -54,8 +54,8 @@ Built specifically to win **HackIndia 2026** — Vibe Coding Hackathon.
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/Jahnavi-Mogarala/VibeCoder.git
-cd VibeCoder
+git clone https://github.com/Jahnavi-Mogarala/WireframeToApp.git
+cd WireframeToApp
 ```
 
 ### 2. Install dependencies
