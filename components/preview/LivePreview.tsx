@@ -89,7 +89,6 @@ export function LivePreview() {
               <SandpackPreview
                 style={{ height: "100%", width: "100%", background: "#030712" }}
                 showNavigator={false}
-                showLineNumbers={false}
                 showRefreshButton={true}
               />
               <ErrorCapture onCapture={setRuntimeError} />

@@ -1,5 +1,4 @@
 import { type ClassValue, clsx } from "clsx";
-import { Frank_Ruhl_Libre } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {

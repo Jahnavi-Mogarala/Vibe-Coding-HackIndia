@@ -1,17 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
-    const { name, code } = await req.json();
-    const id = params.id;
+    const { id } = await params;
+    const { name } = await req.json();
 
     const updated = await prisma.project.update({
-      where: { id: id },
-      data: {
-        name: name,
-        // Update updated timestamp flag
-      },
+      where: { id },
+      data: { name },
     });
 
     return NextResponse.json(updated);
@@ -20,11 +20,15 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
-    const id = params.id;
+    const { id } = await params;
+
     await prisma.project.delete({
-      where: { id: id },
+      where: { id },
     });
     return NextResponse.json({ message: "Successfully deleted project workspace." });
   } catch (err: any) {
