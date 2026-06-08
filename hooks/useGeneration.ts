@@ -1,5 +1,6 @@
 import { useEditorStore } from "@/store/editorStore";
 import { addVersion } from "@/lib/storage";
+import confetti from "canvas-confetti";
 
 export function useGeneration() {
   const {
@@ -73,6 +74,13 @@ export function useGeneration() {
         const finalCode = useEditorStore.getState().generatedCode;
         if (finalCode) {
           addVersion(currentProjectId, finalCode, stylePrompt);
+          // Pop confetti on successful generation! 🎉
+          confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#8b5cf6', '#6366f1', '#a855f7']
+          });
         }
       }
     } catch (err) {

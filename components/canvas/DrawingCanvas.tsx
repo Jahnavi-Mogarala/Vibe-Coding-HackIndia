@@ -68,6 +68,18 @@ export function DrawingCanvas() {
     updateStoreThumbnail();
   };
 
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      uploadSketchImage(e.dataTransfer.files[0]);
+      setTimeout(updateStoreThumbnail, 100);
+    }
+  };
+
   return (
     <div className="flex flex-col h-full bg-slate-900 border border-slate-800 rounded-xl overflow-hidden relative">
       {/* Toolbar header */}
@@ -95,7 +107,11 @@ export function DrawingCanvas() {
       />
 
       {/* Canvas workspace */}
-      <div className="flex-1 relative bg-slate-950 overflow-hidden min-h-[300px]">
+      <div 
+        className="flex-1 relative bg-slate-950 overflow-hidden min-h-[300px]"
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+      >
         {showGrid && (
           <div className="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(to_right,#334155_1px,transparent_1px),linear-gradient(to_bottom,#334155_1px,transparent_1px)] bg-[size:20px_20px]" />
         )}
