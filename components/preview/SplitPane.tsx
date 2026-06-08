@@ -20,7 +20,7 @@ export function SplitPane() {
   const { showTemplateGallery, setShowTemplateGallery } = useEditorStore();
 
   return (
-    <div className="flex flex-col h-full gap-4">
+    <div className="flex flex-col gap-4">
       {/* Workspace toolbar */}
       <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900 border border-slate-800 rounded-xl p-3">
         <div className="flex items-center gap-2">
@@ -85,10 +85,10 @@ export function SplitPane() {
       </div>
 
       {/* Main active frame display */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 min-h-0">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Left canvas pane */}
-        <div className={`lg:col-span-5 h-full ${activeTab === "canvas" ? "block" : "hidden lg:block"}`}>
-          <div className="flex flex-col h-full gap-4">
+        <div className={`lg:col-span-5 ${activeTab === "canvas" ? "block" : "hidden lg:block"}`}>
+          <div className="flex flex-col gap-4 h-full">
             <div className="flex-1 min-h-0">
               <DrawingCanvas />
             </div>
@@ -98,7 +98,7 @@ export function SplitPane() {
         </div>
 
         {/* Right workspace panels */}
-        <div className={`${showHistory ? "lg:col-span-5" : "lg:col-span-7"} flex flex-col h-full gap-4 ${
+        <div className={`${showHistory ? "lg:col-span-5" : "lg:col-span-7"} flex flex-col gap-4 ${
           activeTab !== "canvas" ? "block" : "hidden lg:flex"
         }`}>
           {/* Main preview/editor displays */}
