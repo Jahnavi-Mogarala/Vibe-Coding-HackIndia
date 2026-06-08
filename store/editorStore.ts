@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { getVersions, addVersion as addVersionToStorage, StoredVersion } from "@/lib/storage";
 
 export type ViewportMode = "desktop" | "tablet" | "mobile";
 
@@ -13,6 +14,11 @@ interface EditorState {
   generationStage: "idle" | "reading" | "understanding" | "writing" | "done";
   logs: string[];
   
+  // New Version History
+  versions: StoredVersion[];
+  activeVersionIndex: number | null;
+  showTemplateGallery: boolean;
+
   // Actions
   setProjectId: (id: string | null) => void;
   setProjectName: (name: string) => void;
@@ -24,9 +30,15 @@ interface EditorState {
   setGenerationStage: (stage: "idle" | "reading" | "understanding" | "writing" | "done") => void;
   addLog: (log: string) => void;
   clearLogs: () => void;
+  
+  // New Actions
+  addVersion: (code: string, stylePrompt: string) => void;
+  loadVersions: (projectId: string) => void;
+  restoreVersion: (index: number) => void;
+  setShowTemplateGallery: (show: boolean) => void;
 }
 
-export const useEditorStore = create<EditorState>((set) => ({
+export const useEditorStore = create<EditorState>((set, get) => ({
   currentProjectId: null,
   projectName: "Untitled Sketch",
   generatedCode: `export default function Component() {
@@ -48,6 +60,10 @@ export const useEditorStore = create<EditorState>((set) => ({
   isGenerating: false,
   generationStage: "idle",
   logs: [],
+  
+  versions: [],
+  activeVersionIndex: null,
+  showTemplateGallery: false,
 
   setProjectId: (id) => set({ currentProjectId: id }),
   setProjectName: (name) => set({ projectName: name }),
@@ -59,4 +75,38 @@ export const useEditorStore = create<EditorState>((set) => ({
   setGenerationStage: (stage) => set({ generationStage: stage }),
   addLog: (log) => set((state) => ({ logs: [...state.logs, log] })),
   clearLogs: () => set({ logs: [] }),
+  
+  addVersion: (code, stylePrompt) => {
+    const { currentProjectId } = get();
+    if (!currentProjectId) return;
+    
+    const newVersion = addVersionToStorage(currentProjectId, code, stylePrompt);
+    if (newVersion) {
+      set((state) => ({ 
+        versions: [...state.versions, newVersion],
+        activeVersionIndex: state.versions.length // Points to the new version
+      }));
+    }
+  },
+  
+  loadVersions: (projectId) => {
+    const loadedVersions = getVersions(projectId);
+    set({ 
+      versions: loadedVersions,
+      activeVersionIndex: loadedVersions.length > 0 ? loadedVersions.length - 1 : null
+    });
+  },
+  
+  restoreVersion: (index) => {
+    const { versions } = get();
+    if (index >= 0 && index < versions.length) {
+      set({ 
+        activeVersionIndex: index,
+        generatedCode: versions[index].code,
+        stylePrompt: versions[index].stylePrompt
+      });
+    }
+  },
+  
+  setShowTemplateGallery: (show) => set({ showTemplateGallery: show })
 }));

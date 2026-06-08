@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Plus, Folder, Clock, Trash2, LayoutGrid, Copy, PenTool } from "lucide-react";
+import { getProjects, createProject, deleteProject, StoredProject } from "@/lib/storage";
 import { getMockSketchThumbnail } from "@/lib/utils";
 
 interface DashboardProject {
@@ -18,67 +19,35 @@ export default function DashboardPage() {
   const [projects, setProjects] = useState<DashboardProject[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Load project list or seed mock data
-  const loadProjects = async () => {
-    try {
-      const response = await fetch("/api/projects");
-      if (!response.ok) throw new Error("Database fetch error");
-      const data = await response.json();
-      setProjects(data);
-    } catch (err) {
-      // Setup demo cards if database/api endpoints aren't live
-      setProjects([
-        {
-          id: "demo-dashboard",
-          name: "Dashboard Grid Sketch",
-          thumbnail: getMockSketchThumbnail(),
-          updatedAt: new Date().toISOString(),
-        },
-        {
-          id: "demo-pricing",
-          name: "Pricing Cards Sketch",
-          thumbnail: getMockSketchThumbnail(),
-          updatedAt: new Date().toISOString(),
-        },
-      ]);
-    } finally {
-      setLoading(false);
-    }
+  const loadProjects = () => {
+    const stored = getProjects();
+    const mapped: DashboardProject[] = stored.map((p) => ({
+      id: p.id,
+      name: p.name,
+      thumbnail: p.thumbnail || getMockSketchThumbnail(),
+      updatedAt: p.updatedAt,
+    }));
+    setProjects(mapped);
+    setLoading(false);
   };
 
   useEffect(() => {
     loadProjects();
   }, []);
 
-  const handleCreateProject = async () => {
-    try {
-      const response = await fetch("/api/projects", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: "My New Sketch Layout" }),
-      });
-      if (!response.ok) throw new Error("Could not add project");
-      const project = await response.json();
-      router.push(`/editor/${project.id}`);
-    } catch (err) {
-      // Mock redirect if API fails
-      const randId = Math.random().toString(36).substring(3, 9);
-      router.push(`/editor/new-mock-${randId}`);
-    }
+  const handleCreateProject = () => {
+    const project = createProject("My New Sketch Layout");
+    router.push(`/editor/${project.id}`);
   };
 
-  const handleDeleteProject = async (id: string, e: React.MouseEvent) => {
+  const handleDeleteProject = (id: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
     if (!confirm("Are you sure you want to delete this sketch project?")) return;
 
-    try {
-      await fetch(`/api/projects/${id}`, { method: "DELETE" });
-      setProjects((prev) => prev.filter((p) => p.id !== id));
-    } catch (err) {
-      setProjects((prev) => prev.filter((p) => p.id !== id));
-    }
+    deleteProject(id);
+    setProjects((prev) => prev.filter((p) => p.id !== id));
   };
 
   return (

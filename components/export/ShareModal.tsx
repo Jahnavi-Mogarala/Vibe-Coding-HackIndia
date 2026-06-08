@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { X, Copy, Check, ExternalLink } from "lucide-react";
 import { useEditorStore } from "@/store/editorStore";
+import { createShare } from "@/lib/storage";
 
 interface ShareModalProps {
   isOpen: boolean;
@@ -10,33 +11,21 @@ interface ShareModalProps {
 }
 
 export function ShareModal({ isOpen, onClose }: ShareModalProps) {
-  const { currentProjectId, generatedCode } = useEditorStore();
+  const { generatedCode } = useEditorStore();
   const [shareUrl, setShareUrl] = useState("");
   const [generating, setGenerating] = useState(false);
   const [copied, setCopied] = useState(false);
 
   if (!isOpen) return null;
 
-  const handleGenerateLink = async () => {
+  const handleGenerateLink = () => {
     setGenerating(true);
     try {
-      const response = await fetch("/api/share", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          projectId: currentProjectId || "demo-project",
-          code: generatedCode,
-        }),
-      });
-
-      if (!response.ok) throw new Error("Share link setup failed.");
-      const data = await response.json();
-      
-      const absoluteUrl = `${window.location.origin}/preview/${data.slug}`;
+      const share = createShare(generatedCode, "WireframeToApp Project");
+      const absoluteUrl = `${window.location.origin}/preview/${share.slug}`;
       setShareUrl(absoluteUrl);
     } catch (err) {
       console.error(err);
-      // Fallback url simulation
       const fallbackUrl = `${window.location.origin}/preview/demo-${Math.random().toString(36).substring(4, 9)}`;
       setShareUrl(fallbackUrl);
     } finally {

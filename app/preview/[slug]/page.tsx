@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { SandpackProvider, SandpackLayout, SandpackPreview } from "@codesandbox/sandpack-react";
 import { DEMO_PRESETS } from "@/lib/utils";
+import { getShare } from "@/lib/storage";
 
 export default function PublicSharedPreviewPage() {
   const params = useParams();
@@ -12,23 +13,14 @@ export default function PublicSharedPreviewPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Try fetching code for slug, or fall back to demo templates
-    const fetchCode = async () => {
-      try {
-        const response = await fetch(`/api/share?slug=${slug}`);
-        if (response.ok) {
-          const data = await response.json();
-          setCode(data.code);
-        } else {
-          setCode(DEMO_PRESETS[0].code);
-        }
-      } catch (err) {
-        setCode(DEMO_PRESETS[0].code);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCode();
+    // Load share from localStorage, or fall back to demo templates
+    const share = getShare(slug);
+    if (share) {
+      setCode(share.code);
+    } else {
+      setCode(DEMO_PRESETS[0].code);
+    }
+    setLoading(false);
   }, [slug]);
 
   if (loading) {

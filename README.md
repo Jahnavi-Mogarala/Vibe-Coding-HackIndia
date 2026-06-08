@@ -1,117 +1,120 @@
-# 🎨 WireframeToApp
+# 🚀 WireframeToApp 
 
-> **AI-powered tool that converts hand-drawn UI sketches into live React + Tailwind code using Claude Vision API.**
+> **An elite AI-powered Vibe Coding tool that instantly transforms your hand-drawn wireframes into production-ready React + Tailwind CSS web applications.**
 
-Built for **HackIndia** 🇮🇳 — Vibe Coding Hackathon
+Built specifically for **HackIndia 2026** — Vibe Coding Hackathon.
 
 ---
 
-## ✨ Features
+## ✨ Features (All Working Real-Time!)
 
 | Feature | Description |
 |---|---|
-| **🖌️ Canvas Drawing Engine** | Smooth HTML5 canvas with brush configs, color picker, eraser, undo/redo, grid overlay, and image upload |
-| **🤖 Claude Vision Pipeline** | Streaming AI code generation that analyzes sketches and outputs production React + Tailwind components |
-| **⚡ Live Preview** | Sandpack-powered hot-reloading browser previews with Tailwind CDN, error capture, and viewport switching |
-| **💬 Chat Refinement** | Iteratively refine generated code with natural language prompts |
-| **📊 Dashboard** | Project management with create, delete, and quick-access editor links |
-| **🔗 Shareable Links** | Generate public preview links for your prototypes |
-| **📱 Responsive Viewports** | Switch between desktop, tablet, and mobile preview modes |
-| **🎨 Style Themes** | Dark mode, minimal, glassmorphism, and material design presets |
+| **🖌️ Interactive Drawing Canvas** | HTML5 canvas with smooth brush strokes, color picker, adjustable brush sizes, eraser, undo/redo stack, and grid overlay. |
+| **🤖 Claude Vision AI Generation** | Real-time streaming code generation using Anthropic's Claude 3.5 Sonnet Vision API. It sees your sketch and writes perfect React components. |
+| **⚡ Live Preview & Hot Reload** | Instantly interact with the generated code via Sandpack. It compiles React and Tailwind directly in the browser with full hot-reloading. |
+| **🎨 Template Gallery** | Don't want to draw? Start instantly with beautiful premium templates: Dashboards, Pricing Pages, User Profiles, E-commerce Cards, and Chat UI. |
+| **🕒 Version History UI** | Never lose your work. Every generation is automatically saved locally. Browse through your past generations, view timestamps, and restore any previous version with one click. |
+| **💬 Chat Refinement** | Iterate like a pro. Type "make the button bigger" or "add a dark mode toggle" in the chat, and the AI will incrementally update your code while preserving the existing layout. |
+| **📱 Responsive Viewport Switcher** | Test your generated UI instantly across Desktop, Tablet, and Mobile views. |
+| **🔗 Public Share Links** | One-click generate public, shareable preview links for your prototypes. Send them to your team to test the live app. |
+| **💾 Local-First Architecture** | Completely serverless-safe. All your projects, versions, and shares are saved instantly to local storage for blazing-fast performance. |
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Technology Stack
 
-- **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
+- **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **AI**: [Anthropic Claude 3.5 Sonnet](https://anthropic.com/) (Vision API)
-- **Code Editor**: [Monaco Editor](https://microsoft.github.io/monaco-editor/)
-- **Live Preview**: [Sandpack](https://sandpack.codesandbox.io/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **State Management**: [Zustand](https://zustand-demo.pmnd.rs/)
-- **Database**: [Prisma](https://www.prisma.io/) + SQLite
-- **Icons**: [Lucide React](https://lucide.dev/)
+- **Styling**: Tailwind CSS
+- **AI Engine**: Anthropic Claude 3.5 Sonnet (Vision API)
+- **Code Editor**: Monaco Editor (VS Code engine)
+- **Live Preview Environment**: Sandpack (by CodeSandbox)
+- **State Management**: Zustand
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Storage**: Client-side LocalStorage (Fully serverless compatible)
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Quick Start Guide
 
-### Prerequisites
-- Node.js 18+
-- npm
-
-### Installation
-
+### 1. Clone the repository
 ```bash
-# Clone the repository
 git clone https://github.com/Jahnavi-Mogarala/Vibe-Coding-HackIndia.git
 cd Vibe-Coding-HackIndia
-
-# Install dependencies
-npm install --legacy-peer-deps
-
-# Set up environment variables
-cp .env.example .env
-
-# Generate Prisma client
-npx prisma generate
-
-# Run development server
-npm run dev
 ```
 
-### Environment Variables
+### 2. Install dependencies
+```bash
+npm install --legacy-peer-deps
+```
 
-| Variable | Required | Description |
-|---|---|---|
-| `DATABASE_URL` | Optional | SQLite connection string (default: `file:./dev.db`) |
-| `ANTHROPIC_API_KEY` | Optional | Claude API key for real AI generation (demo mode works without it) |
+### 3. Setup Environment Variables
+Copy the example environment file:
+```bash
+cp .env.example .env
+```
+Open `.env` and add your **Anthropic API Key**:
+```env
+ANTHROPIC_API_KEY="your_real_claude_api_key_here"
+```
+*(Note: If you don't add an API key, the app gracefully falls back to a smart demo simulation mode so you can still test the UI!)*
 
-> **Note**: The app works in **full demo mode** without any API keys! Mock data and AI responses are generated automatically.
+### 4. Run the Development Server
+```bash
+npm run dev
+```
+Visit `http://localhost:3000` to start vibe coding!
 
 ---
 
-## 📂 Project Structure
+## 🎯 How to Use (The Vibe Coding Flow)
+
+1. **Create Workspace**: Go to the Dashboard and click "New Project Workspace".
+2. **Draw or Select**: Either draw a wireframe on the canvas OR click "Templates" to load a pre-built premium layout.
+3. **Select Style**: Choose your desired aesthetic (Glassmorphism, Dark Mode, Minimal, etc.).
+4. **Generate**: Click the glowing generate button and watch the code stream in real-time.
+5. **Preview**: Switch to the "Live Preview" tab to interact with your new app.
+6. **Refine**: Use the chat box at the bottom to ask the AI for specific tweaks.
+7. **Export**: Click "Share" to generate a live public URL, or "Download" to get the raw `.tsx` file.
+
+---
+
+## 📂 Architecture Overview
 
 ```
 ├── app/
-│   ├── page.tsx              # Landing page
-│   ├── dashboard/            # Project management dashboard
-│   ├── editor/[projectId]/   # Main workspace editor
-│   ├── preview/[slug]/       # Public shared previews
-│   └── api/                  # API routes (generate, projects, share, usage)
+│   ├── page.tsx              # Landing page with animations
+│   ├── dashboard/            # Project management grid
+│   ├── editor/[projectId]/   # Main workspace editor (Canvas, Code, Preview)
+│   ├── preview/[slug]/       # Public shared preview renderer
+│   └── api/generate/sketch/  # Next.js API route for Claude Vision streaming
 ├── components/
-│   ├── canvas/               # Drawing tools (DrawingCanvas, Toolbar, Controls)
-│   ├── preview/              # Code editor, live preview, split pane, viewport switcher
-│   ├── generation/           # AI chat refinement, progress indicator, style prompt
-│   ├── export/               # Export panel, share modal
-│   └── layout/               # Navbar
-├── hooks/                    # Custom hooks (useCanvas, useGeneration)
-├── lib/                      # Claude API client, Prisma client, utilities
-├── store/                    # Zustand state management
-└── prisma/                   # Database schema
+│   ├── canvas/               # HTML5 Drawing tools and logic
+│   ├── preview/              # Monaco editor, Sandpack preview, Version History UI
+│   ├── generation/           # Template Gallery, Chat Refinement, Style Selector
+│   ├── export/               # Export Panel, Share Modal
+│   └── layout/               # Navigation
+├── hooks/                    # useCanvas, useGeneration custom logic
+├── lib/                      # claude.ts (API client), storage.ts (LocalDB)
+└── store/                    # editorStore.ts (Zustand global state)
 ```
 
 ---
 
-## 🎯 How It Works
+## 💡 Why this fits "Vibe Coding"
 
-1. **Draw** → Sketch your UI wireframe on the canvas (or upload an image)
-2. **Generate** → Claude Vision AI analyzes your sketch and generates React + Tailwind code
-3. **Preview** → See your component rendered live in the browser
-4. **Refine** → Use chat prompts to iteratively improve the generated code
-5. **Export** → Copy JSX, download `.tsx`, or create shareable preview links
+Writing boilerplate UI code is tedious. **Vibe Coding** is about capturing the "vibe" or intention of what you want to build and letting AI handle the syntax. By combining raw hand-drawn sketches with Claude's incredible vision capabilities, this app bridges the gap between imagination and production code. You just vibe, draw, and deploy.
 
 ---
 
-## 👩‍💻 Team
+## 👩‍💻 Developed By
 
-- **Jahnavi Mogarala** — Developer
+**Jahnavi Mogarala** — Built for HackIndia 2026.
 
 ---
 
 ## 📄 License
 
-This project was built for HackIndia 2026 — Vibe Coding Hackathon.
+MIT License. Feel free to use and modify for your own projects.

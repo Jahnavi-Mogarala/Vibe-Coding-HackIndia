@@ -1,4 +1,5 @@
 import { useEditorStore } from "@/store/editorStore";
+import { addVersion } from "@/lib/storage";
 
 export function useGeneration() {
   const {
@@ -54,7 +55,7 @@ export function useGeneration() {
 
         const chunk = decoder.decode(value);
         streamedCode += chunk;
-        
+
         // Strip out enclosing triple markdown ticks if Claude API outputs them
         let cleanCode = streamedCode;
         if (cleanCode.startsWith("```")) {
@@ -65,6 +66,14 @@ export function useGeneration() {
         }
 
         setGeneratedCode(cleanCode);
+      }
+
+      // Auto-save version to localStorage after successful generation
+      if (currentProjectId) {
+        const finalCode = useEditorStore.getState().generatedCode;
+        if (finalCode) {
+          addVersion(currentProjectId, finalCode, stylePrompt);
+        }
       }
     } catch (err) {
       console.error(err);
