@@ -49,7 +49,7 @@ export default function WorkspaceEditorPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col h-screen overflow-y-auto overflow-x-hidden md:overflow-hidden">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col overflow-x-hidden">
       {/* Save toast notification */}
       {showSaveToast && (
         <div className="fixed top-4 right-4 z-50 animate-fade-in">
@@ -103,7 +103,7 @@ export default function WorkspaceEditorPage() {
       </header>
 
       {/* Editor Panels container split screens */}
-      <main className="flex-1 p-4 md:p-6 min-h-[1000px] md:min-h-0 overflow-visible md:overflow-hidden bg-slate-950/50">
+      <main className="flex-1 p-4 md:p-6 bg-slate-950/50">
         <SplitPane />
       </main>
     </div>
