@@ -1,8 +1,8 @@
-# 🚀 WireframeToApp 
+# 🚀 VibeCoder: Wireframe to App
 
 > **An elite AI-powered Vibe Coding tool that instantly transforms your hand-drawn wireframes into production-ready React + Tailwind CSS web applications.**
 
-Built specifically for **HackIndia 2026** — Vibe Coding Hackathon.
+Built specifically to win **HackIndia 2026** — Vibe Coding Hackathon.
 
 ---
 
@@ -10,7 +10,7 @@ Built specifically for **HackIndia 2026** — Vibe Coding Hackathon.
 
 | Feature | Description |
 |---|---|
-| **🖌️ Interactive Drawing Canvas** | HTML5 canvas with smooth brush strokes, color picker, adjustable brush sizes, eraser, undo/redo stack, and grid overlay. |
+| **🖌️ Interactive Drawing Canvas** | HTML5 canvas with drag-and-drop image upload, smooth brush strokes, color picker, adjustable brush sizes, eraser, undo/redo stack, and grid overlay. |
 | **🤖 Claude Vision AI Generation** | Real-time streaming code generation using Anthropic's Claude 3.5 Sonnet Vision API. It sees your sketch and writes perfect React components. |
 | **⚡ Live Preview & Hot Reload** | Instantly interact with the generated code via Sandpack. It compiles React and Tailwind directly in the browser with full hot-reloading. |
 | **🎨 Template Gallery** | Don't want to draw? Start instantly with beautiful premium templates: Dashboards, Pricing Pages, User Profiles, E-commerce Cards, and Chat UI. |
@@ -31,7 +31,7 @@ Built specifically for **HackIndia 2026** — Vibe Coding Hackathon.
 - **Code Editor**: Monaco Editor (VS Code engine)
 - **Live Preview Environment**: Sandpack (by CodeSandbox)
 - **State Management**: Zustand
-- **Animations**: Framer Motion
+- **Animations**: Framer Motion & Canvas-Confetti
 - **Icons**: Lucide React
 - **Storage**: Client-side LocalStorage (Fully serverless compatible)
 
@@ -54,8 +54,8 @@ Built specifically for **HackIndia 2026** — Vibe Coding Hackathon.
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/Jahnavi-Mogarala/Vibe-Coding-HackIndia.git
-cd Vibe-Coding-HackIndia
+git clone https://github.com/Jahnavi-Mogarala/VibeCoder.git
+cd VibeCoder
 ```
 
 ### 2. Install dependencies
