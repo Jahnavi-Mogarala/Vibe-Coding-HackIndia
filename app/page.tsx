@@ -228,7 +228,7 @@ export default function LandingPage() {
                 className={`w-full py-3 rounded-xl text-center text-xs font-bold transition ${
                   plan.popular
                     ? "bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/10"
-                    : "bg-slate-950 hover:bg-slate-850 text-slate-200 border border-slate-800"
+                    : "bg-slate-950 hover:bg-slate-800 text-slate-200 border border-slate-800"
                 }`}
               >
                 {plan.cta}

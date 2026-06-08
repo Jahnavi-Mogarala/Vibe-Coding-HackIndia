@@ -1,6 +1,43 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+// GET handler — fetch shared preview code by slug
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const slug = searchParams.get("slug");
+
+    if (!slug) {
+      return NextResponse.json({ error: "Missing slug parameter" }, { status: 400 });
+    }
+
+    const shared = await prisma.sharedPreview.findUnique({
+      where: { slug },
+      include: {
+        version: {
+          select: { generatedCode: true },
+        },
+      },
+    });
+
+    if (!shared) {
+      return NextResponse.json({ error: "Preview not found" }, { status: 404 });
+    }
+
+    // Increment view count
+    await prisma.sharedPreview.update({
+      where: { slug },
+      data: { views: { increment: 1 } },
+    });
+
+    return NextResponse.json({ code: shared.version.generatedCode });
+  } catch (err: any) {
+    // Fallback when DB is unavailable
+    return NextResponse.json({ error: "Preview not found" }, { status: 404 });
+  }
+}
+
+// POST handler — create a new share link
 export async function POST(req: NextRequest) {
   try {
     const { projectId, code } = await req.json();

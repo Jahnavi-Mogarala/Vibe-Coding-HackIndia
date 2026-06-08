@@ -7,12 +7,28 @@ export async function PUT(
 ) {
   try {
     const { id } = await params;
-    const { name } = await req.json();
+    const { name, code } = await req.json();
 
     const updated = await prisma.project.update({
       where: { id },
       data: { name },
     });
+
+    // If code is provided, save it as a new version
+    if (code) {
+      try {
+        await prisma.version.create({
+          data: {
+            projectId: id,
+            sketchUrl: "manual-save",
+            generatedCode: code,
+            stylePrompt: "saved",
+          },
+        });
+      } catch (e) {
+        // Version save is best-effort
+      }
+    }
 
     return NextResponse.json(updated);
   } catch (err: any) {

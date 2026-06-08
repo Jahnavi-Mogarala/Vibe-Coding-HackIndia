@@ -15,6 +15,8 @@ const nextConfig = {
     ],
   },
   serverExternalPackages: ['@prisma/client', 'prisma'],
+  // Suppress the workspace root warning on Vercel
+  outputFileTracingRoot: undefined,
 };
 
 module.exports = nextConfig;
