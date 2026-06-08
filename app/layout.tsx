@@ -1,5 +1,5 @@
 import React from "react";
-import "./index.css";
+import "./globals.css";
 
 export const metadata = {
   title: "WireframeToApp - Convert sketches into React components",
