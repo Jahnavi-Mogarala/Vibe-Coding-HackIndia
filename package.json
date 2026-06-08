@@ -10,7 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.0.0",
+    "@clerk/nextjs": "6.0.2",
     "@codesandbox/sandpack-react": "^2.19.10",
     "@monaco-editor/react": "^4.6.0",
     "@prisma/client": "^5.22.0",
