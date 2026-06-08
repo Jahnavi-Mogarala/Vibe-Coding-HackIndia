@@ -13,7 +13,7 @@ export default function WorkspaceEditorPage() {
   const router = useRouter();
   const projectId = params?.projectId as string;
 
-  const { setProjectId, projectName, setProjectName, generatedCode, setGeneratedCode } = useEditorStore();
+  const { setProjectId, projectName, setProjectName, generatedCode, setGeneratedCode, sketchImage, setSketchImage } = useEditorStore();
   const [showSaveToast, setShowSaveToast] = useState(false);
 
   useEffect(() => {
@@ -27,6 +27,9 @@ export default function WorkspaceEditorPage() {
         if (project.code) {
           setGeneratedCode(project.code);
         }
+        if (project.thumbnail && !project.thumbnail.includes("data:image/svg+xml")) {
+          setSketchImage(project.thumbnail);
+        }
       } else {
         setProjectName(`Project Workspace (${projectId.substring(0, 6)})`);
       }
@@ -37,6 +40,7 @@ export default function WorkspaceEditorPage() {
     updateProject(projectId, {
       name: projectName,
       code: generatedCode,
+      ...(sketchImage && { thumbnail: sketchImage })
     });
 
     // Show toast notification
@@ -45,7 +49,7 @@ export default function WorkspaceEditorPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col h-screen overflow-hidden">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col h-screen overflow-y-auto overflow-x-hidden md:overflow-hidden">
       {/* Save toast notification */}
       {showSaveToast && (
         <div className="fixed top-4 right-4 z-50 animate-fade-in">
@@ -99,7 +103,7 @@ export default function WorkspaceEditorPage() {
       </header>
 
       {/* Editor Panels container split screens */}
-      <main className="flex-1 p-6 overflow-hidden min-h-0 bg-slate-950/50">
+      <main className="flex-1 p-4 md:p-6 min-h-[1000px] md:min-h-0 overflow-visible md:overflow-hidden bg-slate-950/50">
         <SplitPane />
       </main>
     </div>
