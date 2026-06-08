@@ -83,8 +83,23 @@ export function useGeneration() {
           });
         }
       }
-    } catch (err) {
-      console.error(err);
+    } catch (err: any) {
+      console.error("Generation Error:", err);
+      setGeneratedCode(`export default function Error() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-slate-950 p-8 text-center">
+      <div className="bg-rose-950/50 border border-rose-500/50 rounded-2xl p-8 max-w-md">
+        <h2 className="text-xl font-bold text-rose-400 mb-2">Generation Failed</h2>
+        <p className="text-sm text-slate-300">
+          The API route threw an error. Did you add your Anthropic API Key to Vercel?
+        </p>
+        <p className="text-xs text-slate-500 mt-4 font-mono bg-black/50 p-2 rounded">
+          {err.message || "Unknown Error"}
+        </p>
+      </div>
+    </div>
+  );
+}`);
     } finally {
       setIsGenerating(false);
       setGenerationStage("done");
