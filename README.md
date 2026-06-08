@@ -37,7 +37,20 @@ Built specifically for **HackIndia 2026** — Vibe Coding Hackathon.
 
 ---
 
-## 🚀 Quick Start Guide
+## 🚀 Deployment: Vercel vs GitHub Pages
+
+> **⚠️ CRITICAL: DO NOT USE GITHUB PAGES!**
+> GitHub Pages only supports static HTML/CSS/JS. Because this app uses a powerful **Next.js Serverless API Route** (`/api/generate/sketch`) to securely stream data from Claude Vision AI, **it cannot be hosted on GitHub Pages.**
+
+**The only correct way to deploy this app is on [Vercel](https://vercel.com):**
+1. Push your code to GitHub.
+2. Go to Vercel and click "Add New Project" -> Import your GitHub repo.
+3. In Vercel Environment Variables, add `ANTHROPIC_API_KEY` = `your_real_key_here`.
+4. Click Deploy! It will instantly host your app with fully functioning AI streaming.
+
+---
+
+## 🚀 Quick Start Guide (Local)
 
 ### 1. Clone the repository
 ```bash
