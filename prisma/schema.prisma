@@ -1,6 +1,6 @@
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 generator client {
@@ -22,7 +22,7 @@ model Project {
   userId    String
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   name      String
-  thumbnail String    @db.Text
+  thumbnail String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   versions  Version[]
@@ -32,8 +32,8 @@ model Version {
   id             String          @id @default(uuid())
   projectId      String
   project        Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  sketchUrl      String          @db.Text // stores base64 PNG data or url
-  generatedCode  String          @db.Text
+  sketchUrl      String          // stores base64 PNG data or url
+  generatedCode  String
   stylePrompt    String
   createdAt      DateTime        @default(now())
   sharedPreviews SharedPreview[]
